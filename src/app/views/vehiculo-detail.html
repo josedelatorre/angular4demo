@@ -1,0 +1,15 @@
+<div *ngIf="!(vehiculo | async)">
+	<p>Cargando vehiculo...</p>
+</div>
+<div class="row" *ngIf="(vehiculo | async)">
+	<div class="col-lg-4" *ngIf="(vehiculo | async)?.imagen">
+		<br>
+		<img [src]="(vehiculo | async)?.imagen" class="producto_imagen"/>
+	</div>
+	<div class="col-lg-8">
+		<h3>{{(vehiculo | async)?.matricula }}</h3>
+		<p><strong>{{(vehiculo | async)?.precio}} €</strong></p>
+		<p>{{(vehiculo | async)?.marca }}</p>
+		<p>{{(vehiculo | async)?.modelo }}</p>
+	</div>
+</div>

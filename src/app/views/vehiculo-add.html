@@ -1,0 +1,58 @@
+<h3>{{titulo}}</h3>
+<hr/>
+
+<form #formVehiculo="ngForm" (ngSubmit)="crearVehiculo()" class="col-lg-6" id="form-vehiculo">
+
+	<label>
+		Matricula
+		<span *ngIf="!matricula.valid && matricula.touched" class="label label-danger">La matricula es obligatoria</span>
+	</label>
+	<input type="text" #matricula="ngModel" name="matricula" [(ngModel)]="vehiculo.matricula" class="form-control" required />
+
+	<label>
+		Marca
+		<span *ngIf="!marca.valid && marca.touched" class="label label-danger">La marca es obligatoria</span>
+	</label>
+	<input type="text" #marca="ngModel" name="marca" [(ngModel)]="vehiculo.marca" class="form-control" required />
+
+	<label>
+		Modelo
+		<span *ngIf="!modelo.valid && modelo.touched" class="label label-danger">El modelo es obligatorio</span>
+	</label>
+	<input type="text" #modelo="ngModel" name="modelo" [(ngModel)]="vehiculo.modelo" class="form-control" required />
+
+	<label>
+		Precio
+		<span *ngIf="!precio.valid && precio.touched" class="label label-danger">El precio no es correcto</span>
+	</label>
+	<input type="text" #precio="ngModel" name="precio" [(ngModel)]="vehiculo.precio" class="form-control" required pattern="[0-9]+"/>
+
+	<label>Imagen</label>
+	<div *ngIf="is_edit">
+		<img [src]="vehiculo.imagen" width="60"/>
+	</div>
+	<input type="file" class="form-control" (change)="fileChangeEvent($event)"/>
+
+	<br/>
+	<input type="submit" value="{{titulo}}" [disabled]="!formVehiculo.form.valid && !selectedFiles" class="btn btn-success"  data-toggle="modal" data-target="#myModal"/>
+	 
+	<!-- Modal -->
+	 <div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title" *ngIf="!is_edit">Vehiculo creado</h4>
+			  <h4 class="modal-title" *ngIf="is_edit">Vehiculo modificado</h4>
+			</div>
+			<div class="modal-body">
+			  <p *ngIf="!is_edit">Tu vehiculo se ha insertado en la base de datos real time de Firebase.</p>
+			  <p *ngIf="is_edit">Tu vehiculo se ha modificado en la base de datos real time de Firebase.</p>			  
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+</form>
